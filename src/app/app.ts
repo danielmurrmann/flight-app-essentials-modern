@@ -5,5 +5,5 @@ import { Component, signal, ViewEncapsulation } from '@angular/core';
   templateUrl: './app.html'
 })
 export class App {
-  protected readonly title = signal('flight42!');
+  protected readonly title = signal('flight42');
 }
