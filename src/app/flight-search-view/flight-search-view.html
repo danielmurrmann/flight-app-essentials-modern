@@ -1,0 +1,38 @@
+<div class="mb-3">
+    <label for="from" class="form-label">From</label>
+    <input class="form-control" id="from" [formField]="form.from">
+</div>
+
+<div class="mb-3">
+    <label for="to" class="form-label">To</label>
+    <input class="form-control" id="to" [formField]="form.to">
+</div>
+
+<button class="btn btn-primary" [disabled]="!criteria().from || !criteria().to" (click)="search()">Search</button>
+
+<hr>
+
+@if(flights().length) {
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">From</th>
+      <th scope="col">To</th>
+      <th scope="col">Date</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (flight of flights(); track flight.id) {
+        <tr [class.table-active]="selectedFlight() === flight">
+            <td>{{ flight.id }}</td>
+            <td>{{ flight.from }}</td>
+            <td>{{ flight.to }}</td>
+            <td>{{ flight.date }}</td>
+            <td><button class="btn btn-secondary" (click)="select(flight)">Select</button></td>
+        </tr>
+    }
+  </tbody>
+</table>
+}
