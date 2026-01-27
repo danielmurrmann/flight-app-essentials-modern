@@ -1,6 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { Flight } from '../entities/flight';
-import { form, FormField } from '@angular/forms/signals';
+import { debounce, form, FormField } from '@angular/forms/signals';
+import { httpResource } from '@angular/common/http';
+
+type FlightSearchCriteria = {
+  from: string;
+  to: string;
+}
 
 @Component({
   selector: 'app-flight-search-view',
@@ -8,17 +14,29 @@ import { form, FormField } from '@angular/forms/signals';
   templateUrl: './flight-search-view.html'
 })
 export class FlightSearchView {
-  criteria = signal({ from: 'Hamburg', to: 'München' });
+  criteria = signal<FlightSearchCriteria>({ from: 'Hamburg', to: 'München' });
   form = form(this.criteria);
-  flights = signal<Flight[]>([]);
   selectedFlight = signal<Flight | undefined>(undefined);
 
+  url = 'https://demo.angulararchitects.io/api/flight';
+
+  flightsResourceParams = signal<FlightSearchCriteria | undefined>(undefined);
+
+  flightsResource = httpResource<Flight[]>(() => {
+    const params = this.flightsResourceParams();
+    if(params === undefined) return undefined;
+    else return {
+      url: this.url,
+      params: this.flightsResourceParams()
+    };
+  }, { 
+    defaultValue: []
+  });
+
+  flights = this.flightsResource.value; 
+
   search(): void {
-    const dummyFlights: Flight[] = [
-      { id: 1, from: this.criteria().from, to: this.criteria().to, date: '2026-07-01', delayed: false },
-      { id: 2, from: this.criteria().from, to: this.criteria().to, date: '2026-07-02', delayed: true }
-    ];
-    this.flights.set(dummyFlights);
+    this.flightsResourceParams.set(this.criteria());
   }
 
   select(flight: Flight): void {
