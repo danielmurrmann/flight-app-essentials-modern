@@ -4,11 +4,12 @@ import { form, FormField } from '@angular/forms/signals';
 import { FlightSearchCriteria, FlightService } from './flight-service';
 import { DefaultFlightService } from './default-flight-service';
 import { DatePipe } from '@angular/common';
+import { CityPipe } from './city-pipe';
 
 
 @Component({
   selector: 'app-flight-search-view',
-  imports: [FormField, DatePipe],
+  imports: [FormField, DatePipe, CityPipe],
   templateUrl: './flight-search-view.html',
   providers: [ { provide: FlightService, useClass: DefaultFlightService } ]
 })
