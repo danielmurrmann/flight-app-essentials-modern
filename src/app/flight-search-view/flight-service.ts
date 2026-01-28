@@ -1,6 +1,7 @@
-import { Injectable, Resource, Signal } from '@angular/core';
+import { inject, Injectable, Resource, Signal } from '@angular/core';
 import { Flight } from '../entities/flight';
 import { DefaultFlightService } from './default-flight-service';
+import { DummyFlightService } from './dummy-flight-service';
 
 export type FlightSearchCriteria = {
   from: string;
@@ -9,7 +10,11 @@ export type FlightSearchCriteria = {
 
 @Injectable({
   providedIn: 'root',
-  useClass: DefaultFlightService
+  useFactory: () => {
+    const useDummyValues = false; //inject(ConfigurationService).useDummyValues;
+    if(useDummyValues) return new DummyFlightService();
+    else return inject(DefaultFlightService);
+  }
 })
 export abstract class FlightService {
   abstract createFlightsResource(criteria: Signal<FlightSearchCriteria | undefined>): Resource<Flight[]>;

@@ -3,7 +3,9 @@ import { Injectable, Signal } from '@angular/core';
 import { Flight } from '../entities/flight';
 import { FlightSearchCriteria, FlightService } from './flight-service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class DefaultFlightService implements FlightService {
   private readonly url = 'https://demo.angulararchitects.io/api/flight';
 
