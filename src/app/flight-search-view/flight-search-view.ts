@@ -1,12 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Flight } from '../entities/flight';
 import { debounce, form, FormField } from '@angular/forms/signals';
 import { httpResource } from '@angular/common/http';
+import { FlightSearchCriteria, FlightService } from './flight-service';
 
-type FlightSearchCriteria = {
-  from: string;
-  to: string;
-}
 
 @Component({
   selector: 'app-flight-search-view',
@@ -18,21 +15,10 @@ export class FlightSearchView {
   form = form(this.criteria);
   selectedFlight = signal<Flight | undefined>(undefined);
 
-  url = 'https://demo.angulararchitects.io/api/flight';
+  flightService = inject(FlightService);
 
   flightsResourceParams = signal<FlightSearchCriteria | undefined>(undefined);
-
-  flightsResource = httpResource<Flight[]>(() => {
-    const params = this.flightsResourceParams();
-    if(params === undefined) return undefined;
-    else return {
-      url: this.url,
-      params: this.flightsResourceParams()
-    };
-  }, { 
-    defaultValue: []
-  });
-
+  flightsResource = this.flightService.createFlightsResource(this.flightsResourceParams);
   flights = this.flightsResource.value; 
 
   search(): void {
