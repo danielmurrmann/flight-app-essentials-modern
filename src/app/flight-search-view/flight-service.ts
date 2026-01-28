@@ -11,7 +11,7 @@ export type FlightSearchCriteria = {
 @Injectable({
   providedIn: 'root',
   useFactory: () => {
-    const useDummyValues = false; //inject(ConfigurationService).useDummyValues;
+    const useDummyValues = true; //inject(ConfigurationService).useDummyValues;
     if(useDummyValues) return new DummyFlightService();
     else return inject(DefaultFlightService);
   }

@@ -1,14 +1,15 @@
 import { Component, inject, signal } from '@angular/core';
 import { Flight } from '../entities/flight';
-import { debounce, form, FormField } from '@angular/forms/signals';
-import { httpResource } from '@angular/common/http';
+import { form, FormField } from '@angular/forms/signals';
 import { FlightSearchCriteria, FlightService } from './flight-service';
+import { DefaultFlightService } from './default-flight-service';
 
 
 @Component({
   selector: 'app-flight-search-view',
   imports: [FormField],
-  templateUrl: './flight-search-view.html'
+  templateUrl: './flight-search-view.html',
+  providers: [ { provide: FlightService, useClass: DefaultFlightService } ]
 })
 export class FlightSearchView {
   criteria = signal<FlightSearchCriteria>({ from: 'Hamburg', to: 'München' });
