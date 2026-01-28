@@ -12,27 +12,10 @@
 
 <hr>
 
-@if(flights().length) {
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">From</th>
-      <th scope="col">To</th>
-      <th scope="col">Date</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (flight of flights(); track flight.id) {
-        <tr [class.table-active]="selectedFlight() === flight">
-            <td>{{ flight.id }}</td>
-            <td>{{ flight.from | city}}</td>
-            <td>{{ flight.to | city}}</td>
-            <td>{{ flight.date | date:'dd.MM.yyyy HH:mm' }}</td>
-            <td><button class="btn btn-secondary" (click)="select(flight)">Select</button></td>
-        </tr>
-    }
-  </tbody>
-</table>
-}
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  @for (flight of flights(); track flight.id) {
+    <div class="col">
+      <app-flight-card [flight]="flight" [selected]="basket()[flight.id]" />
+    </div>
+  }
+</div>
