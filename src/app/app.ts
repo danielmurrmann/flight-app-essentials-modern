@@ -1,10 +1,10 @@
-import { Component, signal, ViewEncapsulation } from '@angular/core';
-import { FlightSearchView } from "./flight-search-view/flight-search-view";
+import { Component, signal } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
-  imports: [FlightSearchView]
+  imports: [RouterOutlet, RouterLink, RouterLinkActive]
 })
 export class App {
   protected readonly title = signal('flight42');
