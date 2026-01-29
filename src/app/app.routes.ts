@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeView } from './home-view/home-view';
 import { FlightSearchView } from './flight-search-view/flight-search-view';
+import { FlightEditView } from './flight-edit-view/flight-edit-view';
 
 export const routes: Routes = [{
     path: '',
@@ -12,6 +13,9 @@ export const routes: Routes = [{
 }, {
     path: 'flight-search',
     component: FlightSearchView
+}, {
+    path: 'flight-edit/:id',
+    component: FlightEditView
 }, {
     path: '**',
     redirectTo: '/home'
