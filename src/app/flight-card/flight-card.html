@@ -1,11 +1,11 @@
-<div class="card" [class.bg-body-secondary]="selectedInternal()">
+<div class="card" [class.bg-body-secondary]="selected()">
   <div class="card-body">
     <h5 class="card-title">{{ flight().from | city }} - {{ flight().to | city }}</h5>
     <p class="card-text">ID: {{ flight().id }}</p>
     <p class="card-text">Date: {{ flight().date | date: 'dd.MM.yyyy HH:mm' }}</p>
   </div>
   <div class="card-footer">
-    @if(selectedInternal()) {
+    @if(selected()) {
       <button class="btn btn-secondary" (click)="deselect()">Remove</button>
     } @else {
       <button class="btn btn-primary" (click)="select()">Select</button>
