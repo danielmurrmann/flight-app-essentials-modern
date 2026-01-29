@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Flight } from '../entities/flight';
 import { form, FormField } from '@angular/forms/signals';
 import { FlightSearchCriteria, FlightService } from './flight-service';
@@ -24,6 +24,8 @@ export class FlightSearchView {
   flightsResourceParams = signal<FlightSearchCriteria | undefined>(undefined);
   flightsResource = this.flightService.createFlightsResource(this.flightsResourceParams);
   flights = this.flightsResource.value; 
+
+  flightRoute = computed(() => this.criteria().from + ' - ' + this.criteria().to);
 
   search(): void {
     this.flightsResourceParams.set(this.criteria());
