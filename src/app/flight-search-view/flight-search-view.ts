@@ -1,21 +1,23 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { Flight } from '../entities/flight';
-import { form, FormField } from '@angular/forms/signals';
-import { FlightSearchCriteria, FlightService } from './flight-service';
+import { form, FormField, minLength, required } from '@angular/forms/signals';
+import { FlightService } from './flight-service';
 import { DefaultFlightService } from './default-flight-service';
 import { FlightCard } from '../flight-card/flight-card';
 import { JsonPipe } from '@angular/common';
+import { FlightSearchCriteria, flightSearchCriteriaSchema } from '../entities/flight-search-criteria';
+import { TextField } from '../text-field/text-field';
 
 
 @Component({
   selector: 'app-flight-search-view',
-  imports: [FormField, FlightCard, JsonPipe],
+  imports: [FormField, FlightCard, JsonPipe, TextField],
   templateUrl: './flight-search-view.html',
   providers: [ { provide: FlightService, useClass: DefaultFlightService } ]
 })
 export class FlightSearchView {
   criteria = signal<FlightSearchCriteria>({ from: 'Hamburg', to: 'München' });
-  form = form(this.criteria);
+  form = form(this.criteria, flightSearchCriteriaSchema);
   selectedFlight = signal<Flight | undefined>(undefined);
   basket = signal<Record<number, boolean>>({});
 

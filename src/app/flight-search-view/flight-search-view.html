@@ -1,12 +1,13 @@
-<div class="mb-3">
+<!-- <div class="mb-3">
     <label for="from" class="form-label">From</label>
-    <input class="form-control" id="from" [formField]="form.from">
-</div>
+    <input class="form-control" [class.error]="form.from().invalid()" id="from" [formField]="form.from">
+    @if(form.from().errors().length > 0) {
+    <p class="form-text">{{form.from().errorSummary()[0].message}}</p>
+    }
+</div> -->
 
-<div class="mb-3">
-    <label for="to" class="form-label">To</label>
-    <input class="form-control" id="to" [formField]="form.to">
-</div>
+<app-text-field [value]="form.from" />
+<app-text-field [value]="form.to" />
 
 <button class="btn btn-primary" [disabled]="!criteria().from || !criteria().to" (click)="search()">Search</button>
 

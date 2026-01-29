@@ -1,7 +1,8 @@
 import { httpResource } from '@angular/common/http';
 import { inject, Injectable, InjectionToken, Signal } from '@angular/core';
 import { Flight } from '../entities/flight';
-import { FlightSearchCriteria, FlightService } from './flight-service';
+import { FlightService } from './flight-service';
+import { FlightSearchCriteria } from '../entities/flight-search-criteria';
 
 export const BASE_URL = new InjectionToken<string>('BASE_URL', {
   providedIn: 'root',

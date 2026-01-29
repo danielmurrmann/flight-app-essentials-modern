@@ -1,0 +1,8 @@
+@let field = value(); 
+<div class="mb-3">
+    <label class="form-label">From</label>
+    <input class="form-control" [class.error]="field().invalid()" [formField]="field">
+    @if(field().errors().length > 0) {
+    <p class="form-text">{{field().errorSummary()[0].message}}</p>
+    }
+</div>
