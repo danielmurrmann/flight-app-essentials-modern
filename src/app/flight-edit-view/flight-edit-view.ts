@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -7,13 +7,5 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './flight-edit-view.html',
 })
 export class FlightEditView {
-  activatedRoute = inject(ActivatedRoute);
-
-  id = signal(0);
-
-  constructor() {
-    this.activatedRoute.params.subscribe(params => {
-      this.id.set(params['id']);
-    });
-  }
+  id = input(0);
 }
